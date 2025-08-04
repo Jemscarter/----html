@@ -68,10 +68,14 @@
             margin-left: auto;
             margin-right: auto;
         }
+        .code-container {
+            position: relative;
+        }
         pre {
             background-color: #2d2d2d;
             color: #f8f8f2;
             padding: 20px;
+            padding-top: 45px; /* Add padding to avoid text overlapping with button */
             border-radius: 5px;
             overflow-x: auto;
             white-space: pre-wrap;
@@ -80,6 +84,22 @@
             font-size: 14px;
             direction: ltr; /* Important for SQL code */
             text-align: left;
+        }
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #1a1a1a;
+            color: white;
+            border: 1px solid #b0b0b0;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        }
+        .copy-btn:hover {
+            background-color: #333;
         }
         .explanation {
             background-color: #f9f9f9;
@@ -104,7 +124,7 @@
     <div class="container">
         <header>
             <h1>עבודת סיכום SQL - סמסטר אביב 2025</h1>
-            <p>שם הסטודנט/ית: ישראל ישראלי, ת.ז. 123456789</p>
+            <p>שם הסטודנט: ג׳רמי גרסיני, ת.ז. 341094803</p>
         </header>
 
         <main>
@@ -185,7 +205,9 @@
                     <p>
                         להלן קוד SQL מלא הכולל את כל הפקודות הנדרשות ליצירת מסד הנתונים והטבלאות, והוספת 5 רשומות לדוגמה בכל טבלה. שמות הישויות והתכונות נכתבו באנגלית, בהתאם לסטנדרט המקובל בתעשייה וכפי שנלמד בקורס בשלב המימוש הטכני. ניתן להעתיק קוד זה ולהריצו ישירות במערכת MySQL.
                     </p>
-                    <pre><code>-- חלק א': יצירת מסד הנתונים והגדרתו לשימוש
+                    <div class="code-container">
+                        <button class="copy-btn" onclick="copySqlCode()">להעתיק את הקוד</button>
+                        <pre><code id="sqlCodeBlock">-- חלק א': יצירת מסד הנתונים והגדרתו לשימוש
 CREATE DATABASE IF NOT EXISTS COD_Analytics;
 USE COD_Analytics;
 
@@ -264,6 +286,7 @@ INSERT INTO PlayerPerformance (SessionID, PlayerID, Kills, Deaths, Result) VALUE
 (3, 1, 22, 12, 'Victory'),
 (4, 4, 15, 8, 'Defeat');
 </code></pre>
+                    </div>
                 </article>
             </section>
         </main>
@@ -272,6 +295,20 @@ INSERT INTO PlayerPerformance (SessionID, PlayerID, Kills, Deaths, Result) VALUE
             <p>עבודת סיכום בקורס מסדי נתונים ו-SQL | אוניברסיטת בר-אילן, 2025</p>
         </footer>
     </div>
+    
+    <script>
+        function copySqlCode() {
+            const codeBlock = document.getElementById('sqlCodeBlock');
+            const codeToCopy = codeBlock.innerText;
+            
+            navigator.clipboard.writeText(codeToCopy).then(() => {
+                alert('הקוד הועתק בהצלחה!');
+            }).catch(err => {
+                console.error('אירעה שגיאה בעת העתקת הקוד: ', err);
+                alert('נכשל בהעתקת הקוד.');
+            });
+        }
+    </script>
 
 </body>
 </html>
