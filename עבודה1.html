@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>עבודת סיכום SQL - שאלה 1</title>
     <style>
         body {
@@ -13,64 +14,79 @@
             margin: 0;
             padding: 0;
         }
+
         .container {
             max-width: 960px;
             margin: 30px auto;
             padding: 25px;
             background-color: #fff;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
         }
+
         header {
             text-align: center;
             border-bottom: 2px solid #e67e22;
             padding-bottom: 15px;
             margin-bottom: 30px;
         }
+
         header h1 {
             color: #d35400;
             margin: 0;
         }
+
         header p {
             margin: 5px 0 0;
             color: #777;
         }
+
         section {
             margin-bottom: 40px;
         }
+
         h2 {
             color: #d35400;
             border-bottom: 1px solid #f0f0f0;
             padding-bottom: 10px;
             margin-top: 0;
         }
+
         h3 {
             color: #444;
             margin-top: 30px;
         }
+
         h4 {
             color: #555;
         }
-        ol li, ul li {
+
+        ol li,
+        ul li {
             margin-bottom: 15px;
         }
-        strong {
+
+        strong,
+        b {
             color: #333;
         }
+
         .erd-image {
             max-width: 100%;
             height: auto;
             border: 1px solid #ddd;
             border-radius: 4px;
             margin-top: 15px;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
             display: block;
             margin-left: auto;
             margin-right: auto;
         }
+
         .code-container {
             position: relative;
         }
+
         pre {
             background-color: #2d2d2d;
             color: #f8f8f2;
@@ -85,10 +101,21 @@
             direction: ltr;
             text-align: left;
         }
+
         pre .comment {
-            color: #7f8c8d; /* Lighter color for comments */
+            color: #7f8c8d;
             font-style: italic;
+            direction: rtl;
+            text-align: right;
+            unicode-bidi: isolate-override;
         }
+
+        pre .comment .ltr {
+            direction: ltr;
+            unicode-bidi: embed;
+            display: inline;
+        }
+
         .copy-btn {
             position: absolute;
             top: 10px;
@@ -102,17 +129,28 @@
             font-family: Arial, sans-serif;
             font-size: 14px;
         }
+
         .copy-btn:hover {
             background-color: #333;
         }
+
         .explanation {
-            background-color: #f9f9f9;
-            border-right: 4px solid #e67e22;
+            background-color: #fff8e1;
+            border-right: 4px solid #f1c40f;
             padding: 10px 20px;
-            margin-top: 5px;
-            font-style: italic;
+            margin: 15px 0;
             color: #666;
         }
+
+        .explanation b {
+            color: #c0392b;
+        }
+
+        .ltr {
+            direction: ltr;
+            display: inline-block;
+        }
+
         footer {
             text-align: center;
             margin-top: 40px;
@@ -123,6 +161,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <div class="container">
@@ -136,63 +175,144 @@
                 <h2>פתרון שאלה 1</h2>
 
                 <article id="part1-description">
-                    <h3>1. תיאור מסד הנתונים ושאלות המחקר (10 נקודות)</h3>
-                    
+                    <h3>1. תיאור מסד הנתונים ושאלות המחקר</h3>
+
                     <h4>נושא מסד הנתונים: ניתוח ביצועי שחקנים ודינמיקת משחק ב-Call of Duty</h4>
                     <p>
-                        מסד הנתונים המוצע נועד לאסוף, לארגן ולנתח נתונים מפעילויות של שחקנים במשחק הווידאו הפופולרי "Call of Duty". המטרה היא לבנות בסיס נתונים מסודר שיאפשר לחקור דפוסי התנהגות, להעריך את האיזון של זירות משחק שונות, ולספק תובנות מבוססות-נתונים למפתחי המשחק. הנושא נבחר מכיוון שהוא מייצג בעיה מודרנית בעולם הטכנולוגיה, בו ניתוח נתונים הוא כלי מרכזי לשיפור חוויית המשתמש.
+                        בפרויקט זה פיתחתי מסד נתונים המתעד את פעילות השחקנים במשחק Call of Duty. המערכת אוספת מידע על
+                        השחקנים עצמם, זירות המשחק (המפות), סבבי המשחק שהתקיימו, וכן ביצועי השחקנים בכל סבב. הנתונים
+                        נאספו מתוך סביבה תחרותית של משחק מרובה משתתפים, ומטרתם לאפשר ניתוח מעמיק לשיפור חוויית המשחק
+                        ומעקב אחר ביצועים.
                     </p>
 
-                    <h4>שאלות מחקר:</h4>
+                    <h4>שאלות המחקר:</h4>
                     <ol>
                         <li>
-                            <strong>כיצד יחס ההריגות/מיתות (K/D Ratio) הממוצע משתנה בין מפות המשחק השונות?</strong>
+                            <strong>כיצד משתנה יחס ההריגות אל מול המיתות (<span class="ltr">K/D Ratio</span>) במפות
+                                המשחק השונות?</strong>
                             <div class="explanation">
-                                <p><strong>הסבר למי שאינו גיימר:</strong> "יחס הריגות/מיתות" הוא מדד ליעילות הקרב של שחקן: כמה הריגות הוא מבצע בממוצע על כל פעם שהוא נהרג בעצמו. "מפת משחק" היא זירת הקרב הווירטואלית.</p>
+                                <p><b>הסבר למי שאינו גיימר:</b> "יחס הריגות-מיתות" הוא מדד ליעילות השחקן בקרב – כמה
+                                    פעמים הוא מצליח להרוג שחקנים אחרים לעומת מספר הפעמים שבהן הוא נהרג בעצמו. "מפת משחק"
+                                    מתייחסת לזירה הווירטואלית בה מתקיים הקרב.</p>
                             </div>
-                            <p><em>מדוע שאלה זו מעניינת?</em> שאלה זו מאפשרת לזהות האם זירות משחק מסוימות מעודדות סגנון משחק אגרסיבי יותר או שהן מאוזנות ומאפשרות משחק הוגן. פער משמעותי במדד זה בין מפות שונות יכול להצביע על חוסר איזון בעיצוב הזירה ולסייע למפתחים בקבלת החלטות לגבי עדכונים עתידיים.</p>
+                            <p><em>מדוע שאלה זו חשובה?</em> היא מאפשרת לזהות האם עיצוב המפות מאוזן. אם מפה מסוימת מראה
+                                באופן עקבי יחס K/D גבוה באופן לא סביר, ייתכן שהיא מעניקה יתרון לא הוגן, מידע קריטי
+                                למפתחים לצורך שיפור ואיזון המשחק.</p>
                         </li>
                         <li>
-                            <strong>מהי ההשפעה של רמת הוותק של שחקן על יעילותו, הנמדדת כיחס הריגות לדקת משחק?</strong>
+                            <strong>מה השפעת רמת הוותק של שחקן (רמת יוקרה) על יעילותו, הנמדדת כיחס הריגות לדקת
+                                משחק?</strong>
                             <div class="explanation">
-                                <p><strong>הסבר למי שאינו גיימר:</strong> "רמת ותק" (במשחק: Prestige Level) היא מעין "דרגה" המציינת כמה זמן וניסיון יש לשחקן במשחק.</p>
+                                <p><b>הסבר למי שאינו גיימר:</b> "רמת יוקרה" (Prestige Level) מייצגת את דרגת הניסיון
+                                    וההתקדמות של השחקן במשחק.</p>
                             </div>
-                            <p><em>מדוע שאלה זו מעניינת?</em> שאלה זו בוחנת את הקשר בין ניסיון למיומנות בפועל. אם נמצא ששחקנים ותיקים אינם בהכרח יעילים יותר, הדבר יכול להצביע על בעיה במערכת שיבוץ השחקנים למשחקים (Matchmaking) או להראות שרמת הוותק מייצגת יותר זמן משחק מאשר יכולת. תובנה זו חיונית כדי להבטיח שהתקדמות במשחק תהיה מתגמלת ובעלת משמעות.</p>
+                            <p><em>מדוע שאלה זו חשובה?</em> היא בוחנת האם הניסיון במשחק אכן מתורגם ליעילות קרבית גבוהה
+                                יותר. אם לא, יתכן שמערכת הדירוג או שיבוץ השחקנים אינה מאוזנת כראוי, מה שעלול לפגוע
+                                במוטיבציה ובחוויית השחקן.</p>
                         </li>
                         <li>
-                            <strong>כיצד משפיע סוג המשחק (לדוגמה, "קרב קבוצתי" מול "הגנה על נקודות") על הקשר שבין ביצועים אישיים לבין ניצחון קבוצתי?</strong>
+                            <strong>כיצד משפיע סוג המשחק על הקשר בין ביצועים אישיים לבין תוצאות קבוצתיות?</strong>
                             <div class="explanation">
-                                <p><strong>הסבר למי שאינו גיימר:</strong> במשחק ישנם מצבי משחק שונים עם מטרות שונות. למשל, מצב אחד מתמקד רק במספר ההריגות, בעוד מצב אחר דורש מהקבוצה להחזיק במיקומים אסטרטגיים על המפה.</p>
+                                <p><b>הסבר למי שאינו גיימר:</b> במשחק קיימים מצבי משחק שונים (Game Modes) בעלי מטרות
+                                    משתנות, כגון דגש על הריגות בלבד או שליטה במיקומים אסטרטגיים במפה.</p>
                             </div>
-                            <p><em>מדוע שאלה זו מעניינת?</em> ניתוח זה מאפשר להבין עד כמה ביצועים אישיים (כמו מספר הריגות) תורמים להצלחה קבוצתית בכל סוג משחק. אם יתברר שבמצב משחק מסוים מספר הריגות גבוה אינו מוביל לניצחון, הדבר יכול לעזור למפתחים לאזן את חשיבות המטרות השונות ולתגמל שחקנים לא רק על הריגות, אלא גם על תרומה אסטרטגית לניצחון הקבוצה.</p>
+                            <p><em>מדוע שאלה זו חשובה?</em> ניתוח זה מאפשר להבין האם ביצועים אישיים בלבד הם גורם מכריע
+                                בניצחון הקבוצה, או שדווקא עבודת צוות ופעולות אסטרטגיות תורמות יותר. תובנה זו חשובה
+                                לאיזון משחק ותכנון מערכות ניקוד.</p>
                         </li>
                     </ol>
                 </article>
 
                 <article id="part2-erd">
-                    <h3>2. דיאגרמת ישויות-קשרים (ERD) והסבר על נורמליזציה (15 נקודות)</h3>
-                    
-                    <h4>דיאגרמת ERD:</h4>
-                    <p>להלן תמונה של דיאגרמת הישויות-קשרים (ERD). המודל תוכנן בשפה העברית, בהתאם למתודולוגיית הקורס לשלב התכנון הרעיוני.</p>
-                    
-                    <img src="שרטוט ERD.png" alt="דיאגרמת ERD של מסד הנתונים" class="erd-image">
+                    <h3>2. דיאגרמת ישויות-קשרים (ERD) והסבר על נורמליזציה</h3>
 
-                    <h4>הסבר על עמידה בכללי הנורמליזציה (3NF):</h4>
-                    
-                    <p>
-                        המבנה המוצע תוכנן בקפידה לעמוד בכללי הנורמליזציה עד לרמה השלישית (3NF), וזאת על מנת להבטיח את שלמות הנתונים, למנוע כפילויות ולספק בסיס איתן לניתוחים עתידיים.
-                    </p>
+                    <h4>דיאגרמת ERD:</h4>
+                    <p>להלן דיאגרמת הישויות-קשרים (ERD) שתכננתי עבור מסד הנתונים:</p>
+
+                    <img src="שרטוט ERD.png" alt="דיאגרמת ERD של מסד הנתונים" class="erd-image" />
+
+                    <h4>הסבר על הישויות, התכונות והקשרים במודל:</h4>
+
+                    <p>המודל כולל ארבע ישויות עיקריות:</p>
                     <ul>
-                        <li><strong>צורה נורמלית ראשונה (1NF):</strong> המודל עומד בכלל זה. לכל טבלה יש מפתח ראשי המבטיח זיהוי ייחודי, וכל עמודה מכילה ערכים אטומיים בלבד.</li>
-                        <li><strong>צורה נורמלית שנייה (2NF):</strong> המודל עומד בכלל זה מכיוון שאין תלויות חלקיות. בטבלת הקישור "ביצועי שחקנים בסבב", כל התכונות תלויות באופן מלא במפתח הראשי המורכב כולו.</li>
-                        <li><strong>צורה נורמלית שלישית (3NF):</strong> המודל עומד בכלל זה מכיוון שנמנעו תלויות טרנזיטיביות. כל תכונה שאינה מפתח תלויה באופן ישיר במפתח הראשי, ולא בתכונות אחרות שאינן מפתח. לדוגמה, "שם משתמש" שמור רק בטבלת "שחקנים" ותלוי ישירות ב-"מזהה שחקן", מה שמונע כפילות ואנומליות עדכון.</li>
+                        <li><b>שחקנים:</b>
+                            <ul>
+                                <li>מזהה שחקן (מפתח ראשי, <span class="ltr">INT</span>)</li>
+                                <li>שם משתמש ייחודי (<span class="ltr">VARCHAR(50)</span>)</li>
+                                <li>רמת יוקרה (<span class="ltr">INT</span>)</li>
+                                <li>תאריך הצטרפות (<span class="ltr">DATE</span>)</li>
+                            </ul>
+                        </li>
+                        <li><b>מפות:</b>
+                            <ul>
+                                <li>מזהה מפה (מפתח ראשי, <span class="ltr">INT</span>)</li>
+                                <li>שם מפה (<span class="ltr">VARCHAR(50)</span>)</li>
+                                <li>סוג משחק (<span class="ltr">VARCHAR(50)</span>)</li>
+                            </ul>
+                        </li>
+                        <li><b>סבבי משחק:</b>
+                            <ul>
+                                <li>מזהה סבב (מפתח ראשי, <span class="ltr">INT</span>)</li>
+                                <li>מזהה מפה (מפתח זר, <span class="ltr">INT</span>)</li>
+                                <li>חותמת זמן (<span class="ltr">DATETIME</span>)</li>
+                                <li>משך משחק בדקות (<span class="ltr">INT</span>)</li>
+                            </ul>
+                        </li>
+                        <li><b>ביצועי שחקנים בסבב (טבלת קישור):</b>
+                            <ul>
+                                <li>מזהה סבב (מפתח משולב, <span class="ltr">INT</span>)</li>
+                                <li>מזהה שחקן (מפתח משולב, <span class="ltr">INT</span>)</li>
+                                <li>הריגות (<span class="ltr">INT</span>)</li>
+                                <li>מיתות (<span class="ltr">INT</span>)</li>
+                                <li>תוצאה (<span class="ltr">VARCHAR(20)</span>)</li>
+                            </ul>
+                        </li>
                     </ul>
+
+                    <p><b>קשרים במודל:</b></p>
+                    <p>קשר מרכזי הוא קשר רבים-לרבים (<span class="ltr">N:M</span>) בין שחקנים לסבבי משחק. קשר זה מיושם
+                        בטבלת הקישור "ביצועי שחקנים בסבב". בנוסף קיימים קשרי אחד-לרבים (<span class="ltr">1:M</span>)
+                        חשובים:</p>
+                    <ul>
+                        <li>מפה אחת משמשת מספר סבבי משחק.</li>
+                        <li>סבב אחד כולל מספר שחקנים.</li>
+                        <li>שחקן אחד יכול להשתתף במספר סבבים.</li>
+                    </ul>
+                    <div class="explanation" style="margin-top: 15px;">
+                        <p><b style="color: #c0392b;">הסבר על נורמליזציה:</b></p>
+
+                        <p>המודל המוצע תוכנן בקפידה תוך יישום עקרונות הנורמליזציה שנלמדו בקורס, במטרה להבטיח שלמות
+                            נתונים, למנוע כפילויות ולספק בסיס איתן לניתוחים.</p>
+
+                        <p><b>צורה נורמלית ראשונה (1NF):</b> כל טבלה עומדת בכלל זה. לכל טבלה יש מפתח ראשי המבטיח זיהוי
+                            ייחודי לכל שורה, וכל עמודה מכילה ערכים אטומיים בלבד (למשל, אין רשימת שחקנים בתא אחד).</p>
+
+                        <p><b>צורה נורמלית שנייה (2NF):</b> המודל עומד בכלל זה מכיוון שאין תלויות חלקיות. בטבלה
+                            <code>ביצועי שחקנים בסבב</code>, שלה מפתח מורכב (<code>מזהה סבב</code> +
+                            <code>מזהה שחקן</code>), כל התכונות (הריגות, מיתות, תוצאה) תלויות באופן מלא בשני חלקי המפתח
+                            יחד, ולא רק באחד מהם.</p>
+
+                        <p><b>צורה נורמלית שלישית (3NF):</b> המודל עומד בכלל זה מכיוון שנמנעו תלויות טרנזיטיביות. כל
+                            תכונה שאינה מפתח תלויה ישירות במפתח הראשי בלבד. לדוגמה:</p>
+                        <ul>
+                            <li>שם המשתמש של השחקן שמור רק בטבלת <code>שחקנים</code> ותלוי ישירות במזהה השחקן. הוא אינו
+                                משוכפל בטבלת הביצועים, מה שמונע אנומליות עדכון.</li>
+                            <li>באופן דומה, פרטי המפה (<code>שם מפה</code>, <code>סוג משחק</code>) שמורים רק בטבלת
+                                <code>מפות</code> ותלויים במזהה המפה.</li>
+                        </ul>
+
+                        <p><b>ישות מקשרת (Associative Entity):</b> קשר הרבים-לרבים (N:M) בין שחקנים לסבבי משחק מומש
+                            כהלכה באמצעות טבלת הקישור <code>ביצועי שחקנים בסבב</code>. טבלה זו לא רק מקשרת בין הישויות,
+                            אלא גם מכילה תכונות המתארות את הקשר עצמו (כמו מספר ההריגות והתוצאה).</p>
+                    </div>
+
                 </article>
 
                 <article id="part3-sql">
-                    <h3>3. קוד SQL להקמת מסד הנתונים (15 נקודות)</h3>
+                    <h3>3. קוד SQL להקמת מסד הנתונים</h3>
                     <p>
-                        להלן קוד SQL מלא הכולל את כל הפקודות הנדרשות ליצירת מסד הנתונים. הקוד כולל הערות מפורטות המסבירות את ההחלטות התכנוניות החשובות, כגון בחירת סוגי הנתונים, הגדרת אילוצים ושימוש בערכי ברירת מחדל. ניתן להעתיק קוד זה ולהריצו ישירות במערכת MySQL.
+                        להלן קוד ה-SQL המלא להקמת מסד הנתונים. הקוד כולל הערות מפורטות שמסבירות את ההחלטות התכנוניות
+                        המרכזיות. ניתן להעתיק ולהריץ אותו ישירות במערכת MySQL.
                     </p>
                     <div class="code-container">
                         <button class="copy-btn" onclick="copySqlCode()">להעתיק את הקוד</button>
@@ -205,9 +325,11 @@ USE COD_Analytics;
 <span class="comment">-- טבלה 1: שחקנים (Players)
 -- טבלה זו מרכזת את כל המידע הסטטי על המשתמשים.</span>
 CREATE TABLE Players (
-    <span class="comment">-- מפתח ראשי מלאכותי (Surrogate Key) המבטיח זיהוי ייחודי לכל שחקן ומאפשר שינוי שם משתמש.</span>
+    <span class="comment">-- מפתח ראשי מלאכותי (Surrogate Key) המבטיח זיהוי ייחודי ומאפשר שינוי שם משתמש.
+    -- AUTO_INCREMENT מגדיר מספור אוטומטי לכל שחקן חדש.</span>
     PlayerID INT NOT NULL AUTO_INCREMENT,
-    <span class="comment">-- אילוץ ייחודיות המונע כפילות בשמות המשתמשים. שם הוא חובה.</span>
+    <span class="comment">-- VARCHAR(50) הוא אורך סביר לשם משתמש.
+    -- אילוץ UNIQUE מבטיח שאין שני שחקנים עם אותו שם משתמש.</span>
     Username VARCHAR(50) NOT NULL UNIQUE,
     PrestigeLevel INT NOT NULL,
     JoinDate DATE,
@@ -215,7 +337,7 @@ CREATE TABLE Players (
 );
 
 <span class="comment">-- טבלה 2: מפות (Maps)
--- טבלה זו היא "טבלת ייחוס" (Lookup Table) המכילה את כל המפות וסוגי המשחק האפשריים.</span>
+-- זוהי טבלת ייחוס (Lookup Table) המכילה את כל המפות וסוגי המשחק האפשריים.</span>
 CREATE TABLE Maps (
     MapID INT NOT NULL AUTO_INCREMENT,
     MapName VARCHAR(50) NOT NULL,
@@ -227,8 +349,10 @@ CREATE TABLE Maps (
 -- טבלה זו מתעדת כל משחק שהתרחש כיחידה עצמאית.</span>
 CREATE TABLE GameSessions (
     SessionID INT NOT NULL AUTO_INCREMENT,
-    <span class="comment">-- מפתח זר המבטיח שכל סבב משחק משויך למפה קיימת (Referential Integrity).</span>
+    <span class="comment">-- מפתח זר המבטיח "שלמות ייחוסית" (Referential Integrity):
+    -- לא ניתן ליצור סבב משחק עבור מפה שאינה קיימת בטבלת Maps.</span>
     MapID INT NOT NULL,
+    <span class="comment">-- DATETIME שומר את התאריך והשעה המדויקים של תחילת הסבב.</span>
     SessionTimestamp DATETIME NOT NULL,
     SessionDurationMinutes INT NOT NULL,
     PRIMARY KEY (SessionID),
@@ -236,14 +360,16 @@ CREATE TABLE GameSessions (
 );
 
 <span class="comment">-- טבלה 4: ביצועי שחקנים בסבב (PlayerPerformance)
--- זוהי טבלת קישור (Associative Entity) הפותרת את קשר הרבים-לרבים (N:M) בין שחקנים לסבבי משחק.</span>
+-- טבלת קישור הפותרת את קשר הרבים-לרבים (N:M) בין שחקנים לסבבי משחק.</span>
 CREATE TABLE PlayerPerformance (
     SessionID INT NOT NULL,
     PlayerID INT NOT NULL,
-    <span class="comment">-- ערך ברירת מחדל 0 מונע ערכי NULL ומקל על חישובים עתידיים (כמו ממוצעים).</span>
+    <span class="comment">-- DEFAULT 0 מונע ערכי NULL ומקל על חישובים.
+    -- אם שחקן הצטרף ולא ביצע כלום, הביצועים שלו הם 0 ולא "לא ידוע".</span>
     Kills INT NOT NULL DEFAULT 0,
     Deaths INT NOT NULL DEFAULT 0,
-    <span class="comment">-- התוצאה יכולה להיות NULL במקרה שהמשחק לא הסתיים או שהשחקן יצא באמצע.</span>
+    <span class="comment">-- התוצאה יכולה להיות NULL במקרה שהמשחק לא הסתיים או שהשחקן יצא באמצע.
+    -- NULL מייצג כאן "ערך לא ידוע" או "לא רלוונטי", וזו המשמעות הנכונה במקרה זה.</span>
     Result VARCHAR(20),
     <span class="comment">-- מפתח מורכב המזהה באופן ייחודי ביצועים של שחקן בסבב משחק ספציפי.</span>
     PRIMARY KEY (SessionID, PlayerID),
@@ -292,24 +418,27 @@ INSERT INTO PlayerPerformance (SessionID, PlayerID, Kills, Deaths, Result) VALUE
         </main>
 
         <footer>
-            <p>עבודת סיכום בקורס מסדי נתונים ו-SQL | אוניברסיטת בר-אילן, 2025</p>
+            <p>עבודת סיכום בקורס מסדי נתונים ו-SQL | אוניברסיטת בר-אילן, 2025
+                <br />
+                האתר תוכנת על ידי ג׳מיניי והועלה לגיטהאב
+            </p>
         </footer>
     </div>
-    
+
     <script>
         function copySqlCode() {
             const codeBlock = document.getElementById('sqlCodeBlock');
-            // Create a temporary textarea element to preserve formatting
-            const tempTextArea = document.createElement('textarea');
-            tempTextArea.value = codeBlock.textContent || codeBlock.innerText;
-            document.body.appendChild(tempTextArea);
-            tempTextArea.select();
-            document.execCommand('copy');
-            document.body.removeChild(tempTextArea);
-            
-            alert('הקוד הועתק בהצלחה!');
+            const codeToCopy = codeBlock.textContent || codeBlock.innerText;
+
+            navigator.clipboard.writeText(codeToCopy).then(() => {
+                alert('הקוד הועתק בהצלחה!');
+            }).catch(err => {
+                console.error('אירעה שגיאה בעת העתקת הקוד: ', err);
+                alert('נכשל בהעתקת הקוד.');
+            });
         }
     </script>
 
 </body>
+
 </html>
