@@ -75,15 +75,19 @@
             background-color: #2d2d2d;
             color: #f8f8f2;
             padding: 20px;
-            padding-top: 45px; /* Add padding to avoid text overlapping with button */
+            padding-top: 45px;
             border-radius: 5px;
             overflow-x: auto;
             white-space: pre-wrap;
             word-wrap: break-word;
             font-family: 'Courier New', Courier, monospace;
             font-size: 14px;
-            direction: ltr; /* Important for SQL code */
+            direction: ltr;
             text-align: left;
+        }
+        pre .comment {
+            color: #7f8c8d; /* Lighter color for comments */
+            font-style: italic;
         }
         .copy-btn {
             position: absolute;
@@ -173,25 +177,10 @@
                     
                     <img src="שרטוט ERD.png" alt="דיאגרמת ERD של מסד הנתונים" class="erd-image">
 
-                    <h4>פירוט הישויות והתכונות במודל:</h4>
-                    <ul>
-                        <li>
-                            <p><strong>טבלת "שחקנים":</strong> מכילה מידע ייחודי וסטטי על כל שחקן.</p>
-                        </li>
-                        <li>
-                            <p><strong>טבלת "מפות":</strong> מכילה מידע סטטי וייחודי על כל מפת משחק.</p>
-                        </li>
-                        <li>
-                            <p><strong>טבלת "סבבי משחק":</strong> מתעדת כל משחק שהתרחש כיחידה עצמאית, ללא תלות בשחקנים ספציפיים.</p>
-                        </li>
-                        <li>
-                            <p><strong>טבלת "ביצועי שחקנים בסבב":</strong> זוהי טבלת קישור (Associative Entity) הפותרת את קשר הרבים-לרבים (N:M) בין שחקנים לסבבי משחק. היא מכילה את נתוני הביצועים של כל שחקן בכל משחק.</p>
-                        </li>
-                    </ul>
-
                     <h4>הסבר על עמידה בכללי הנורמליזציה (3NF):</h4>
+                    
                     <p>
-                        המבנה המוצע תוכנן בקפידה לעמוד בכללי הנורמליזציה עד לרמה השלישית (3NF), וזאת על מנת להבטיח את שלמות הנתונים ולמנוע כפילויות.
+                        המבנה המוצע תוכנן בקפידה לעמוד בכללי הנורמליזציה עד לרמה השלישית (3NF), וזאת על מנת להבטיח את שלמות הנתונים, למנוע כפילויות ולספק בסיס איתן לניתוחים עתידיים.
                     </p>
                     <ul>
                         <li><strong>צורה נורמלית ראשונה (1NF):</strong> המודל עומד בכלל זה. לכל טבלה יש מפתח ראשי המבטיח זיהוי ייחודי, וכל עמודה מכילה ערכים אטומיים בלבד.</li>
@@ -203,26 +192,30 @@
                 <article id="part3-sql">
                     <h3>3. קוד SQL להקמת מסד הנתונים (15 נקודות)</h3>
                     <p>
-                        להלן קוד SQL מלא הכולל את כל הפקודות הנדרשות ליצירת מסד הנתונים והטבלאות, והוספת 5 רשומות לדוגמה בכל טבלה. שמות הישויות והתכונות נכתבו באנגלית, בהתאם לסטנדרט המקובל בתעשייה וכפי שנלמד בקורס בשלב המימוש הטכני. ניתן להעתיק קוד זה ולהריצו ישירות במערכת MySQL.
+                        להלן קוד SQL מלא הכולל את כל הפקודות הנדרשות ליצירת מסד הנתונים. הקוד כולל הערות מפורטות המסבירות את ההחלטות התכנוניות החשובות, כגון בחירת סוגי הנתונים, הגדרת אילוצים ושימוש בערכי ברירת מחדל. ניתן להעתיק קוד זה ולהריצו ישירות במערכת MySQL.
                     </p>
                     <div class="code-container">
                         <button class="copy-btn" onclick="copySqlCode()">להעתיק את הקוד</button>
-                        <pre><code id="sqlCodeBlock">-- חלק א': יצירת מסד הנתונים והגדרתו לשימוש
+                        <pre><code id="sqlCodeBlock"><span class="comment">-- חלק א': יצירת מסד הנתונים והגדרתו לשימוש</span>
 CREATE DATABASE IF NOT EXISTS COD_Analytics;
 USE COD_Analytics;
 
--- חלק ב': יצירת הטבלאות עם מפתחות, אילוצים וקשרים
+<span class="comment">-- חלק ב': יצירת הטבלאות עם מפתחות, אילוצים וקשרים</span>
 
--- טבלה 1: שחקנים (Players)
+<span class="comment">-- טבלה 1: שחקנים (Players)
+-- טבלה זו מרכזת את כל המידע הסטטי על המשתמשים.</span>
 CREATE TABLE Players (
+    <span class="comment">-- מפתח ראשי מלאכותי (Surrogate Key) המבטיח זיהוי ייחודי לכל שחקן ומאפשר שינוי שם משתמש.</span>
     PlayerID INT NOT NULL AUTO_INCREMENT,
+    <span class="comment">-- אילוץ ייחודיות המונע כפילות בשמות המשתמשים. שם הוא חובה.</span>
     Username VARCHAR(50) NOT NULL UNIQUE,
     PrestigeLevel INT NOT NULL,
     JoinDate DATE,
     PRIMARY KEY (PlayerID)
 );
 
--- טבלה 2: מפות (Maps)
+<span class="comment">-- טבלה 2: מפות (Maps)
+-- טבלה זו היא "טבלת ייחוס" (Lookup Table) המכילה את כל המפות וסוגי המשחק האפשריים.</span>
 CREATE TABLE Maps (
     MapID INT NOT NULL AUTO_INCREMENT,
     MapName VARCHAR(50) NOT NULL,
@@ -230,9 +223,11 @@ CREATE TABLE Maps (
     PRIMARY KEY (MapID)
 );
 
--- טבלה 3: סבבי משחק (GameSessions)
+<span class="comment">-- טבלה 3: סבבי משחק (GameSessions)
+-- טבלה זו מתעדת כל משחק שהתרחש כיחידה עצמאית.</span>
 CREATE TABLE GameSessions (
     SessionID INT NOT NULL AUTO_INCREMENT,
+    <span class="comment">-- מפתח זר המבטיח שכל סבב משחק משויך למפה קיימת (Referential Integrity).</span>
     MapID INT NOT NULL,
     SessionTimestamp DATETIME NOT NULL,
     SessionDurationMinutes INT NOT NULL,
@@ -240,21 +235,26 @@ CREATE TABLE GameSessions (
     FOREIGN KEY (MapID) REFERENCES Maps(MapID)
 );
 
--- טבלה 4: ביצועי שחקנים בסבב (PlayerPerformance)
+<span class="comment">-- טבלה 4: ביצועי שחקנים בסבב (PlayerPerformance)
+-- זוהי טבלת קישור (Associative Entity) הפותרת את קשר הרבים-לרבים (N:M) בין שחקנים לסבבי משחק.</span>
 CREATE TABLE PlayerPerformance (
     SessionID INT NOT NULL,
     PlayerID INT NOT NULL,
+    <span class="comment">-- ערך ברירת מחדל 0 מונע ערכי NULL ומקל על חישובים עתידיים (כמו ממוצעים).</span>
     Kills INT NOT NULL DEFAULT 0,
     Deaths INT NOT NULL DEFAULT 0,
-    Result VARCHAR(20), -- 'Victory', 'Defeat', 'Draw'
+    <span class="comment">-- התוצאה יכולה להיות NULL במקרה שהמשחק לא הסתיים או שהשחקן יצא באמצע.</span>
+    Result VARCHAR(20),
+    <span class="comment">-- מפתח מורכב המזהה באופן ייחודי ביצועים של שחקן בסבב משחק ספציפי.</span>
     PRIMARY KEY (SessionID, PlayerID),
     FOREIGN KEY (SessionID) REFERENCES GameSessions(SessionID),
     FOREIGN KEY (PlayerID) REFERENCES Players(PlayerID)
 );
 
--- חלק ג': הכנסת נתונים לדוגמה
+<span class="comment">-- חלק ג': הכנסת נתונים לדוגמה (5 רשומות לכל טבלה)
+-- הנתונים מכבדים את כל אילוצי המפתחות הזרים.</span>
 
--- הכנסת נתונים לטבלת Players
+<span class="comment">-- הכנסת נתונים לטבלת Players</span>
 INSERT INTO Players (Username, PrestigeLevel, JoinDate) VALUES
 ('IsraeliSniper1', 85, '2022-03-15'),
 ('IDF_fury99', 62, '2021-11-20'),
@@ -262,7 +262,7 @@ INSERT INTO Players (Username, PrestigeLevel, JoinDate) VALUES
 ('Galil26', 68, '2023-01-25'),
 ('John_Wick111', 95, '2019-08-01');
 
--- הכנסת נתונים לטבלת Maps
+<span class="comment">-- הכנסת נתונים לטבלת Maps</span>
 INSERT INTO Maps (MapName, GameMode) VALUES
 ('Nuketown', 'Team Deathmatch'),
 ('Crash', 'Domination'),
@@ -270,7 +270,7 @@ INSERT INTO Maps (MapName, GameMode) VALUES
 ('Rust', 'Team Deathmatch'),
 ('Hackney Yard', 'Search and Destroy');
 
--- הכנסת נתונים לטבלת GameSessions
+<span class="comment">-- הכנסת נתונים לטבלת GameSessions</span>
 INSERT INTO GameSessions (MapID, SessionTimestamp, SessionDurationMinutes) VALUES
 (1, '2025-06-01 18:30:00', 10),
 (3, '2025-06-01 19:00:00', 12),
@@ -278,7 +278,7 @@ INSERT INTO GameSessions (MapID, SessionTimestamp, SessionDurationMinutes) VALUE
 (4, '2025-06-02 21:15:00', 8),
 (5, '2025-06-03 17:45:00', 20);
 
--- הכנסת נתונים לטבלת PlayerPerformance
+<span class="comment">-- הכנסת נתונים לטבלת PlayerPerformance</span>
 INSERT INTO PlayerPerformance (SessionID, PlayerID, Kills, Deaths, Result) VALUES
 (1, 1, 25, 10, 'Victory'),
 (1, 2, 18, 15, 'Victory'),
@@ -299,14 +299,15 @@ INSERT INTO PlayerPerformance (SessionID, PlayerID, Kills, Deaths, Result) VALUE
     <script>
         function copySqlCode() {
             const codeBlock = document.getElementById('sqlCodeBlock');
-            const codeToCopy = codeBlock.innerText;
+            // Create a temporary textarea element to preserve formatting
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = codeBlock.textContent || codeBlock.innerText;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempTextArea);
             
-            navigator.clipboard.writeText(codeToCopy).then(() => {
-                alert('הקוד הועתק בהצלחה!');
-            }).catch(err => {
-                console.error('אירעה שגיאה בעת העתקת הקוד: ', err);
-                alert('נכשל בהעתקת הקוד.');
-            });
+            alert('הקוד הועתק בהצלחה!');
         }
     </script>
 
